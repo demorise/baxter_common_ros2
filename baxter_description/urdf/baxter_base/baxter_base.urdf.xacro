@@ -1,16 +1,16 @@
 <?xml version="1.0" ?>
 <robot name="baxter" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-<!--  <xacro:if value="$(arg gazebo)">
+ <xacro:if value="$(arg gazebo)">
     <xacro:property name="mass_scale" value=".1"/>
     <xacro:include filename="$(find baxter_description)/urdf/baxter_base/baxter_base.gazebo.xacro" />
   </xacro:if>
   <xacro:unless value="$(arg gazebo)">
     <xacro:property name="mass_scale" value=".1"/>
-  </xacro:unless>-->
+  </xacro:unless>
 
   <xacro:macro name="range_sensor" params="side">
- <!-- <gazebo>
+<gazebo>
   <sensor name="range_${side}" type="gpu_lidar">
     <pose >1 0 0 0 ${PI/2} 0</pose>
     <topic>${side}_range</topic>
@@ -39,7 +39,7 @@
     <always_on>1</always_on>
     <visualize>true</visualize>
 </sensor>
-</gazebo>-->
+</gazebo>
 </xacro:macro>
 
 
@@ -252,14 +252,19 @@
     <parent link="torso"/>
     <child link="right_torso_itb"/>
   </joint>
-  <joint name="head_pan" type="revolute">
+  <!--joint name="head_pan" type="revolute">
     <origin rpy="0 0 0" xyz="0.06 0 0.686"/>
     <axis xyz="0 0 1"/>
     <parent link="torso"/>
     <child link="head"/>
     <limit effort="50000" lower="-1.3963" upper="1.3963" velocity="10000"/>
-    <dynamics damping="0.7" friction="0.0"/>
-  </joint>
+    <dynamics damping="10000.0" friction="100000.0"/>
+  </joint-->
+  <joint name="head_pan" type="fixed">
+    <origin rpy="0 0 0" xyz="0.06 0 0.686"/>
+    <parent link="torso"/>
+    <child link="head"/>
+  </joint>  
   <joint name="head_nod" type="fixed">
     <origin rpy="1.75057 0 1.57079632679" xyz=".1227 0 0"/>
     <parent link="head"/>
@@ -556,7 +561,7 @@
     <parent link="right_arm_mount"/>
     <child link="right_upper_shoulder"/>
     <limit effort="50.0" lower="-1.70167993878" upper="1.70167993878" velocity="1.5"/>
-    <dynamics damping="0.7" friction="0.0"/>
+    <dynamics damping="10000.0" friction="100000.0"/>
   </joint>
   <joint name="right_s1" type="revolute">
     <origin rpy="-1.57079632679 0 0" xyz="0.069 0 0.27035"/>
@@ -564,7 +569,7 @@
     <parent link="right_upper_shoulder"/>
     <child link="right_lower_shoulder"/>
     <limit effort="50.0" lower="-2.147" upper="1.047" velocity="1.5"/>
-    <dynamics damping="0.7" friction="0.0"/>
+    <dynamics damping="10000.0" friction="100000.0"/>
   </joint>
   <joint name="right_e0" type="revolute">
     <origin rpy="1.57079632679 0 1.57079632679" xyz="0.102 0 0"/>
@@ -572,7 +577,7 @@
     <parent link="right_lower_shoulder"/>
     <child link="right_upper_elbow"/>
     <limit effort="50.0" lower="-3.05417993878" upper="3.05417993878" velocity="1.5"/>
-    <dynamics damping="0.7" friction="0.0"/>
+    <dynamics damping="10000.0" friction="100000.0"/>
   </joint>
   <joint name="right_e0_fixed" type="fixed">
     <origin rpy="1.57079632679 0 1.57079632679" xyz="0.107 0 0"/>
@@ -586,7 +591,7 @@
     <parent link="right_upper_elbow"/>
     <child link="right_lower_elbow"/>
     <limit effort="50.0" lower="-0.05" upper="2.618" velocity="1.5"/>
-    <dynamics damping="0.7" friction="0.0"/>
+    <dynamics damping="10000.0" friction="100000.0"/>
   </joint>
   <joint name="right_w0" type="revolute">
     <origin rpy="1.57079632679 0 1.57079632679" xyz="0.10359 0 0"/>
@@ -594,7 +599,7 @@
     <parent link="right_lower_elbow"/>
     <child link="right_upper_forearm"/>
     <limit effort="15.0" lower="-3.059" upper="3.059" velocity="4.0"/>
-    <dynamics damping="0.7" friction="0.0"/>
+    <dynamics damping="10000.0" friction="100000.0"/>
   </joint>
   <joint name="right_w0_fixed" type="fixed">
     <origin rpy="1.57079632679 0 1.57079632679" xyz="0.088 0 0"/>
@@ -614,7 +619,7 @@
     <parent link="right_upper_forearm"/>
     <child link="right_lower_forearm"/>
     <limit effort="15.0" lower="-1.57079632679" upper="2.094" velocity="4.0"/>
-    <dynamics damping="0.7" friction="0.0"/>
+    <dynamics damping="10000.0" friction="100000.0"/>
   </joint>
   <joint name="right_w2" type="revolute">
     <origin rpy="1.57079632679 0 1.57079632679" xyz="0.115975 0 0"/>
@@ -622,7 +627,7 @@
     <parent link="right_lower_forearm"/>
     <child link="right_wrist"/>
     <limit effort="15.0" lower="-3.059" upper="3.059" velocity="4.0"/>
-    <dynamics damping="0.7" friction="0.0"/>
+    <dynamics damping="10000.0" friction="100000.0"/>
   </joint>
   <joint name="right_hand_fixed" type="fixed">
     <origin rpy="0 0 0" xyz="0 0 0.11355"/>
@@ -925,7 +930,7 @@
     <parent link="left_arm_mount"/>
     <child link="left_upper_shoulder"/>
     <limit effort="50.0" lower="-1.70167993878" upper="1.70167993878" velocity="1.5"/>
-    <dynamics damping="0.7" friction="0.0"/>
+    <dynamics damping="10000.0" friction="100000.0"/>
   </joint>
   <joint name="left_s1" type="revolute">
     <origin rpy="-1.57079632679 0 0" xyz="0.069 0 0.27035"/>
@@ -933,7 +938,7 @@
     <parent link="left_upper_shoulder"/>
     <child link="left_lower_shoulder"/>
     <limit effort="50.0" lower="-2.147" upper="1.047" velocity="1.5"/>
-    <dynamics damping="0.7" friction="0.0"/>
+    <dynamics damping="10000.0" friction="100000.0"/>
   </joint>
   <joint name="left_e0" type="revolute">
     <origin rpy="1.57079632679 0 1.57079632679" xyz="0.102 0 0"/>
@@ -941,7 +946,7 @@
     <parent link="left_lower_shoulder"/>
     <child link="left_upper_elbow"/>
     <limit effort="50.0" lower="-3.05417993878" upper="3.05417993878" velocity="1.5"/>
-    <dynamics damping="0.7" friction="0.0"/>
+    <dynamics damping="10000.0" friction="100000.0"/>
   </joint>
   <joint name="left_e0_fixed" type="fixed">
     <origin rpy="1.57079632679 0 1.57079632679" xyz="0.107 0 0"/>
@@ -955,7 +960,7 @@
     <parent link="left_upper_elbow"/>
     <child link="left_lower_elbow"/>
     <limit effort="50.0" lower="-0.05" upper="2.618" velocity="1.5"/>
-    <dynamics damping="0.7" friction="0.0"/>
+    <dynamics damping="10000.0" friction="100000.0"/>
   </joint>
   <joint name="left_w0" type="revolute">
     <origin rpy="1.57079632679 0 1.57079632679" xyz="0.10359 0 0"/>
@@ -963,7 +968,7 @@
     <parent link="left_lower_elbow"/>
     <child link="left_upper_forearm"/>
     <limit effort="15.0" lower="-3.059" upper="3.059" velocity="4.0"/>
-    <dynamics damping="0.7" friction="0.0"/>
+    <dynamics damping="10000.0" friction="100000.0"/>
   </joint>
   <joint name="left_w0_fixed" type="fixed">
     <origin rpy="1.57079632679 0 1.57079632679" xyz="0.088 0 0"/>
@@ -983,7 +988,7 @@
     <parent link="left_upper_forearm"/>
     <child link="left_lower_forearm"/>
     <limit effort="15.0" lower="-1.57079632679" upper="2.094" velocity="4.0"/>
-    <dynamics damping="0.7" friction="0.0"/>
+    <dynamics damping="10000.0" friction="100000.0"/>
   </joint>
   <joint name="left_w2" type="revolute">
     <origin rpy="1.57079632679 0 1.57079632679" xyz="0.115975 0 0"/>
@@ -991,7 +996,7 @@
     <parent link="left_lower_forearm"/>
     <child link="left_wrist"/>
     <limit effort="15.0" lower="-3.059" upper="3.059" velocity="4.0"/>
-    <dynamics damping="0.7" friction="0.0"/>
+    <dynamics damping="10000.0" friction="100000.0"/>
   </joint>
   <joint name="left_hand_fixed" type="fixed">
     <origin rpy="0 0 0" xyz="0 0 0.11355"/>

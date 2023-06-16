@@ -1,20 +1,20 @@
 <?xml version="1.0" ?>
 <robot name="baxter" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-  <xacro:arg name="gazebo" default="false"/>
+  <xacro:arg name="gazebo" default="true"/>
   <xacro:arg name="pedestal" default="true"/>
 
   <xacro:property name="PI" value="3.1415927"/>
 
   <!-- Baxter Base URDF -->
   <xacro:include filename="$(find baxter_description)/urdf/baxter_base/baxter_base.urdf.xacro">
-<!--     <xacro:arg name="gazebo" value="$(arg gazebo)"/> -->
+     <xacro:arg name="gazebo" value="$(arg gazebo)"/>
   </xacro:include>
 
   <!-- Baxter Pedestal -->
   <xacro:if value="$(arg pedestal)">
     <xacro:include filename="$(find baxter_description)/urdf/pedestal/pedestal.xacro">
-<!--       <xacro:arg name="gazebo" value="$(arg gazebo)"/> -->
+       <xacro:arg name="gazebo" value="$(arg gazebo)"/>
     </xacro:include>
   </xacro:if>
 
@@ -25,7 +25,7 @@
   <xacro:include filename="$(find baxter_description)/urdf/right_end_effector.urdf.xacro" />
 
   <!-- Gazebo plugins -->
-  <xacro:include filename="$(find baxter_description)/urdf/gazebosim.urdf.xacro" />
+  <!--xacro:include filename="$(find baxter_description)/urdf/gazebosim.urdf.xacro" /-->
 
 
 
